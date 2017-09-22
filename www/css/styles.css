@@ -1,0 +1,38 @@
+.navContainer{
+   clear: both;
+}
+
+.navContainer li{
+   background-color: teal;
+   color: white;
+   display: block;
+   float: left;
+   height: 30px;
+   line-height: 40px;
+   text-decoration: none;
+   //width: 100px;
+   text-align: center;
+
+   padding: 3px;
+
+   border-radius: 3px;
+   border: 1px solid black;
+
+   margin: 0px 2px 0px 2px;
+
+}
+
+.navContainer li:hover{
+   cursor: pointer;
+}
+
+#snippetArea{
+   clear: both;
+}
+.snippetContainer{
+   background-color: rgb(255, 150, 150);
+}
+
+.snippetContainer h1{
+   font-size: 15px;
+}
