@@ -6,15 +6,21 @@ var selectedTags = ["animacion"];
 var snippets = [
    {
       titulo: "Seleccion de HTML",
-      code: "Snippet de Codigo",
-      descripcion: "Explicacion del Snippet",
-      tags: ["seleccion","attr"]
+      code: 'var $elemento = $("#selector p")',
+      descripcion: "Selecciona y guarda el elemento con ese ID, como un objeto JQuery",
+      tags: ["seleccion", "js", "jquery"]
    },
    {
       titulo: "Fade Out",
       code: "Snippet de Codigo",
       descripcion: "Explicacion del Snippet",
       tags: ["animacion","animate"]
+   },
+   {
+      titulo: "document.ready",
+      code: "Snippet de Codigo",
+      descripcion: "Explicacion del Snippet",
+      tags: ["ready","jquery"]
    }
 ]
 var selectedSnippets = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONLY WITH PRIMITIVES/IMMUTABLES
@@ -22,10 +28,11 @@ var selectedSnippets = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONL
 
 $(document).ready(function(){
    createNavigation();
-   createSnippetContainers2();
+   //createSnippetContainers();
 });
 
-function createSnippetContainers(){
+/*
+function createSnippetContainers_Old(){
    var $snippetArea = $("#snippetArea");
 
    for (var i = 0; i < snippets.length; i++) {
@@ -51,8 +58,9 @@ function createSnippetContainers(){
    //$("li").css("background-color", "red");
 
 }
+*/
 
-function createSnippetContainers2(){
+function createSnippetContainers(){
    var $snippetArea = $("#snippetArea");
 
    updateSelectedSnippetsArray(selectedTags);
@@ -61,8 +69,8 @@ function createSnippetContainers2(){
 
    for (var i = 0; i < selectedSnippets.length; i++) {
       var $titulo = $("<h1>",{"text":selectedSnippets[i].titulo});
-      var $code = $("<p>", {"text":selectedSnippets[i].code});
-      var $descripcion = $("<p>",{"text":selectedSnippets[i].descripcion});
+      var $code = $("<p>", {"text":selectedSnippets[i].code,"class":"snippetCode"});
+      var $descripcion = $("<p>",{"text":selectedSnippets[i].descripcion,"class":"snippetDescription"});
 
       var $nuevoSnippet = $("<div>",{"class":"snippetContainer"});
 
@@ -87,7 +95,7 @@ function createNavigation(){
    var $navContainer = $(".navContainer");
 
    for (var i = 0; i < tags.length; i++) {
-      var $newNavTag = $("<li>",{"text":tags[i]});
+      var $newNavTag = $("<li>",{"text":tags[i],"class":"activeTag"});
 
       $navContainer.append($newNavTag);
    }
@@ -122,16 +130,19 @@ function filtrar(tagName){
    $navButtons.each(function(index,element){
       for (var i = 0; i < selectedTags.length; i++) {
          if($(element).text() == selectedTags[i]){
-            $(element).css({"background-color":"teal"});
+            //$(element).css({"background-color":"var(--accent-color)", "color":"var(--light-primary-color)"});
+            $(element).attr("class","activeTag");
             break;
          } else {
-            $(element).css({"background-color":"skyblue"});
+            //$(element).css({"background-color":"var(--light-primary-color)", "color":"var(--secondary-text-color)"});
+            $(element).attr("class","inactiveTag");
          }
       }
 
    });
 
-   createSnippetContainers2();
+   // UPDATE VIEW - SNIPPETS
+   createSnippetContainers();
 
 }
 

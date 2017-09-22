@@ -1,42 +1,48 @@
 <!DOCTYPE html>
 <html>
-  <head>
-  	<meta charset="UTF-8">
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
-    <script type="text/javascript" src="js/controller.js"></script>
-    <link rel="stylesheet" href="css/styles.css">
-  </head>
-  <body>
-     <header id="cabeza">
+   <head>
+   	<meta charset="UTF-8">
+
+      <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.3/jquery.min.js"></script>
+      <script type="text/javascript" src="js/controller.js"></script>
+
+      <link rel="stylesheet" href="css/styles.css">
+      <link rel="stylesheet" href="css/prism.css">
+
+
+   </head>
+   <body>
+      <header id="cabeza">
         <h1>SnippetyBoo, a sudden shock of code Snippets</h1>
-     </header>
+      </header>
 
-     <nav>
-        <ul class="navContainer">
-           <div>Filtrar por funcionalidad:</div>
-           <li id="resetFilter">X</li>
+      <nav id="navArea">
+         <div>Filtrar por:</div>
+         <ul class="navContainer">
+            <li id="resetFilter">X</li>
+         </ul>
+         <!--
+         <ul class="navContainer">
+            <div>Filtrar por funcion:</div>
+            <li>ready</li>
+            <li>attr</li>
+            <li>animate</li>
+         </ul>
+         -->
+      </nav>
 
-           <!--
-           <li>Seleccion</li>
-           <li>Filtrado</li>
-           <li>Modificacion de CSS</li>
-           <li>Animacion</li>-->
-        </ul>
-        <ul class="navContainer">
-           <div>Filtrar por funcion:</div>
-           <li>ready</li>
-           <li>attr</li>
-           <li>animate</li>
-        </ul>
-     </nav>
-
-     <section id="snippetArea">
+      <section id="snippetArea">
+         <div class="snippetContainer">
+            <h1>TEST</h1>
+            <pre><code class="language-js">var $snippetArea = $("#snippetArea");</code></pre>
+            <p class="snippetDescription">Explicacion del Snippet</p>
+         </div>
          <!--
          <div class="snippetContainer">Snippet 1</div>
          <div class="snippetContainer">Snippet 2</div>
          -->
-     </section>
+      </section>
 
-
+      <script type="text/javascript" src="js/prism.js"></script>
   </body>
 </html>
