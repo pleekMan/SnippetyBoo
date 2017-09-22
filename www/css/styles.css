@@ -29,16 +29,24 @@ body{
 header{
    margin = 0px;
    padding = 10px;
+   margin-left: 40px;
 
 }
 
 h1{
    font-size: 20px;
+   color: var(--dark-primary-color);
 }
 
 #navArea{
    background-color: var(--default-primary-color);
    padding: 5px 0 10px 40px;
+}
+
+#navArea h4{
+   margin:0px;
+   font-size: 13px;
+   color: var(--text-primary-color);
 }
 
 .navContainer{
@@ -109,16 +117,18 @@ h1{
    color: var(--primary-text-color);
 }
 .snippetContainer{
+   width: 400px;
+   //height: 200px;
    margin: 5px;
    padding: 5px;
    display: inline-block;
    background-color: var(--text-primary-color);
    box-shadow: 3px 3px var(--divider-color);
-
+   vertical-align: top;
 }
 
 .snippetContainer h1{
-   font-size: 13px;
+   font-size: 15px;
    //border-bottom: solid 1px var(--divider-color);
    margin: 5px;
    padding-bottom: 7px;
@@ -126,7 +136,7 @@ h1{
 
 .snippetContainer h1:before{
    content: "> ";
-   font-size: 15px;
+   font-size: 16px;
    font-weight: bold;
    color: var(--secondary-text-color);
 }

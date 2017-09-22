@@ -1,7 +1,7 @@
-var tags = ["seleccion", "filtrado", "modificacion de css","animacion","ready","attr","animate"];
+var tags = ["seleccion", "creacion", "filtrado", "modificacion de css","animacion","ready","attr","append", "fadeout", "click", "transicion"];
 
-//var selectedTags = tags;
-var selectedTags = ["animacion"];
+var selectedTags = tags;
+//var selectedTags = ["animacion"];
 
 var snippets = [
    {
@@ -11,10 +11,22 @@ var snippets = [
       tags: ["seleccion", "js", "jquery"]
    },
    {
+      titulo: "Crear un Elemento y asignar attributos",
+      code: 'var $nuevoLi = $("<li>",{"text": "Un elemento de la lista"});',
+      descripcion: "Crea un nuevo elemento y asigna el attributo TEXT",
+      tags: ["creacion", "js", "jquery"]
+   },
+   {
+      titulo: "Crear Elemento y append()",
+      code: 'var $nuevoLi = $("<li>",{"text": "Otro elemento en la lista"});\n$("#miLista").append($nuevoLi);',
+      descripcion: "Crear un Elemento y lo agrega a un lista preExistente",
+      tags: ["creacion", "js", "jquery","append"]
+   },
+   {
       titulo: "Fade Out",
-      code: "Snippet de Codigo",
-      descripcion: "Explicacion del Snippet",
-      tags: ["animacion","animate"]
+      code: '$("h1").click(function(){\n\t$(this).fadeOut();\n});',
+      descripcion: "Al apretarse un elemento <h1>, éste mismo transiciona a invisible. Al terminar la animación, se elimina del DOM.",
+      tags: ["animacion","fadeout", "click"]
    },
    {
       titulo: "document.ready",
@@ -28,48 +40,31 @@ var selectedSnippets = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONL
 
 $(document).ready(function(){
    createNavigation();
-   //createSnippetContainers();
+   createSnippetContainers();
 });
-
-/*
-function createSnippetContainers_Old(){
-   var $snippetArea = $("#snippetArea");
-
-   for (var i = 0; i < snippets.length; i++) {
-      var $titulo = $("<h1>",{"text":snippets[i].titulo});
-      var $code = $("<p>", {"text":snippets[i].code});
-      var $descripcion = $("<p>",{"text":snippets[i].descripcion});
-
-      var $nuevoSnippet = $("<div>",{"class":"snippetContainer"});
-
-      //var mergedHTMLs = $titulo.innerHTML() + $code.innerHTML() + $descripcion.innerHTML();
-      //var mergedHTMLs = $titulo.append($code).append($descripcion);
-      //$nuevoSnippet.html(mergedHTMLs);
-
-      $nuevoSnippet.append($titulo);
-      $nuevoSnippet.append($code);
-      $nuevoSnippet.append($descripcion);
-
-
-      $snippetArea.append($nuevoSnippet);
-      //$("#snippetArea").append($("<div>",{"class":"snippetContainer", "text":"AppendedSnippet"}));
-   }
-
-   //$("li").css("background-color", "red");
-
-}
-*/
 
 function createSnippetContainers(){
    var $snippetArea = $("#snippetArea");
 
    updateSelectedSnippetsArray(selectedTags);
 
-   $snippetArea.children(".snippetContainer").remove();
+   //$snippetArea.children(".snippetContainer").remove();
+   $snippetArea.children(".snippetContainer").fadeOut(500);
+   generateSnippetsCode();
+
+
+
+   //$("li").css("background-color", "red");
+}
+
+function generateSnippetsCode(){
+   var $snippetArea = $("#snippetArea");
 
    for (var i = 0; i < selectedSnippets.length; i++) {
       var $titulo = $("<h1>",{"text":selectedSnippets[i].titulo});
-      var $code = $("<p>", {"text":selectedSnippets[i].code,"class":"snippetCode"});
+      var $code = $("<code>", {"text":selectedSnippets[i].code,"class":"language-js"});
+      var $preCode = $("<pre>");
+      $preCode.append($code);
       var $descripcion = $("<p>",{"text":selectedSnippets[i].descripcion,"class":"snippetDescription"});
 
       var $nuevoSnippet = $("<div>",{"class":"snippetContainer"});
@@ -79,15 +74,14 @@ function createSnippetContainers(){
       //$nuevoSnippet.html(mergedHTMLs);
 
       $nuevoSnippet.append($titulo);
-      $nuevoSnippet.append($code);
+      $nuevoSnippet.append($preCode);
       $nuevoSnippet.append($descripcion);
 
 
-      $snippetArea.append($nuevoSnippet);
+      $snippetArea.prepend($nuevoSnippet);
       //$("#snippetArea").append($("<div>",{"class":"snippetContainer", "text":"AppendedSnippet"}));
    }
-
-   //$("li").css("background-color", "red");
+   Prism.highlightAll();
 
 }
 
