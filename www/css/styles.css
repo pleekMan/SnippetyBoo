@@ -159,3 +159,12 @@ h1{
    border-top: solid 1px var(--divider-color);
    padding-top: 10px;
 }
+
+.snippetTags{
+   padding-left: 5px;
+   font-size: 12px;
+   color: var(--accent-color);
+   font-style: italic;
+   //border-top: solid 1px var(--divider-color);
+   padding-top: 10px;
+}

@@ -25,7 +25,7 @@ var snippets = [
    {
       titulo: "Fade Out",
       code: '$("h1").click(function(){\n\t$(this).fadeOut();\n});',
-      descripcion: "Al apretarse un elemento <h1>, éste mismo transiciona a invisible. Al terminar la animación, se elimina del DOM.",
+      descripcion: "Al apretarse un elemento <h1>, éste mismo transiciona a invisible. Al terminar la animación -> display:none.",
       tags: ["animacion","fadeout", "click"]
    },
    {
@@ -49,7 +49,8 @@ function createSnippetContainers(){
    updateSelectedSnippetsArray(selectedTags);
 
    //$snippetArea.children(".snippetContainer").remove();
-   $snippetArea.children(".snippetContainer").fadeOut(500);
+   //$snippetArea.children(".snippetContainer").fadeOut(500);
+   removeSnippetsFromView();
    generateSnippetsCode();
 
 
@@ -60,29 +61,77 @@ function createSnippetContainers(){
 function generateSnippetsCode(){
    var $snippetArea = $("#snippetArea");
 
+   var $snippetsInView = $snippetArea.children();
+
    for (var i = 0; i < selectedSnippets.length; i++) {
-      var $titulo = $("<h1>",{"text":selectedSnippets[i].titulo});
-      var $code = $("<code>", {"text":selectedSnippets[i].code,"class":"language-js"});
-      var $preCode = $("<pre>");
-      $preCode.append($code);
-      var $descripcion = $("<p>",{"text":selectedSnippets[i].descripcion,"class":"snippetDescription"});
 
-      var $nuevoSnippet = $("<div>",{"class":"snippetContainer"});
+      if(!isSnippetInView(selectedSnippets[i], $snippetsInView)){
+         var $titulo = $("<h1>",{"text":selectedSnippets[i].titulo});
+         var $code = $("<code>", {"text":selectedSnippets[i].code,"class":"language-js"});
+         var $preCode = $("<pre>");
+         $preCode.append($code);
+         var $descripcion = $("<p>",{"text":selectedSnippets[i].descripcion,"class":"snippetDescription"});
+         var $tags = $("<p>",{"text":selectedSnippets[i].tags,"class":"snippetTags"});
 
-      //var mergedHTMLs = $titulo.innerHTML() + $code.innerHTML() + $descripcion.innerHTML();
-      //var mergedHTMLs = $titulo.append($code).append($descripcion);
-      //$nuevoSnippet.html(mergedHTMLs);
+         var $nuevoSnippet = $("<div>",{"class":"snippetContainer"});
 
-      $nuevoSnippet.append($titulo);
-      $nuevoSnippet.append($preCode);
-      $nuevoSnippet.append($descripcion);
+         //var mergedHTMLs = $titulo.innerHTML() + $code.innerHTML() + $descripcion.innerHTML();
+         //var mergedHTMLs = $titulo.append($code).append($descripcion);
+         //$nuevoSnippet.html(mergedHTMLs);
+
+         $nuevoSnippet.append($titulo);
+         $nuevoSnippet.append($preCode);
+         $nuevoSnippet.append($descripcion);
+         $nuevoSnippet.append($tags);
 
 
-      $snippetArea.prepend($nuevoSnippet);
-      //$("#snippetArea").append($("<div>",{"class":"snippetContainer", "text":"AppendedSnippet"}));
+
+         $snippetArea.prepend($nuevoSnippet);
+         //$("#snippetArea").append($("<div>",{"class":"snippetContainer", "text":"AppendedSnippet"}));
+      }
    }
+
+
    Prism.highlightAll();
 
+}
+
+function removeSnippetsFromView(){
+
+      // REMOVE THE VIEW SNIPPETS THAT DO NOT MATCH THE
+      // TITLE OF THE MODEL SNIPPETS.
+
+      var snippetsInView = $("#snippetArea").children();
+      var titlesOfSnippetsToUpdate = getNewSnippetsTitles();
+
+      snippetsInView.each(function(index, element){
+         var tituloInView = $(element).children("h1").html();
+         if(titlesOfSnippetsToUpdate.indexOf(tituloInView) == -1){
+            $(this).remove();
+         }
+
+      });
+
+}
+
+function getNewSnippetsTitles(){
+   var titles = [];
+   for (var i = 0; i < selectedSnippets.length; i++) {
+      titles.push(selectedSnippets[i].title);
+   }
+   return titles;
+}
+
+function isSnippetInView(snippet, snippetsInView){
+
+   snippetsInView.each(function(index, element){
+      var tituloInView = $(element).children("h1").html();
+      if(tituloInView == snippet.titulo){
+         return true;
+      }
+
+   });
+   return false;
 }
 
 function createNavigation(){
@@ -146,7 +195,7 @@ function updateSelectedTagsArray(tagName){
       selectedTags = tags;
       return;
    }
-   // INIT STATE
+   // IF AT INIT STATE (ALL TAGS SELECTED), CLEAR selectedTags
    if(selectedTags.length == tags.length){
       selectedTags = [];
    }
@@ -154,6 +203,8 @@ function updateSelectedTagsArray(tagName){
    // IF IT DOESN'T ALREADY EXIST
    if(selectedTags.indexOf(tagName) == -1){
       selectedTags.push(tagName);
+   } else {
+      selectedTags.splice(selectedTags.indexOf(tagName),1);
    }
 }
 
