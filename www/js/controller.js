@@ -1,44 +1,16 @@
-var tags = ["seleccion", "creacion", "filtrado", "modificacion de css","animacion","ready","attr","append", "fadeout", "click", "transicion"];
-
-var selectedTags = tags;
+//var tags = ["seleccion", "creacion", "filtrado", "modificacion de css","animacion","ready","attr","append", "fadeout", "click", "transicion"];
+var tags = [];
+var selectedTags = [];
 //var selectedTags = ["animacion"];
 
-var snippets = [
-   {
-      titulo: "Seleccion de HTML",
-      code: 'var $elemento = $("#selector p")',
-      descripcion: "Selecciona y guarda el elemento con ese ID, como un objeto JQuery",
-      tags: ["seleccion", "js", "jquery"]
-   },
-   {
-      titulo: "Crear un Elemento y asignar attributos",
-      code: 'var $nuevoLi = $("<li>",{"text": "Un elemento de la lista"});',
-      descripcion: "Crea un nuevo elemento y asigna el attributo TEXT",
-      tags: ["creacion", "js", "jquery"]
-   },
-   {
-      titulo: "Crear Elemento y append()",
-      code: 'var $nuevoLi = $("<li>",{"text": "Otro elemento en la lista"});\n$("#miLista").append($nuevoLi);',
-      descripcion: "Crear un Elemento y lo agrega a un lista preExistente",
-      tags: ["creacion", "js", "jquery","append"]
-   },
-   {
-      titulo: "Fade Out",
-      code: '$("h1").click(function(){\n\t$(this).fadeOut();\n});',
-      descripcion: "Al apretarse un elemento <h1>, éste mismo transiciona a invisible. Al terminar la animación -> display:none.",
-      tags: ["animacion","fadeout", "click"]
-   },
-   {
-      titulo: "document.ready",
-      code: "Snippet de Codigo",
-      descripcion: "Explicacion del Snippet",
-      tags: ["ready","jquery"]
-   }
-]
+// SNIPPETS OBJECTS ARE ON snippets.js
 var selectedSnippets = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONLY WITH PRIMITIVES/IMMUTABLES
 
 
 $(document).ready(function(){
+
+   buildNavigationTagsFromSnippets();
+
    createNavigation();
    createSnippetContainers();
 
@@ -165,12 +137,28 @@ function createNavigation(){
 
 }
 
+function buildNavigationTagsFromSnippets(){
+   for (var i = 0; i < snippets.length; i++) {
+      var snippetTags = snippets[i].tags;
+      for (var j = 0; j < snippetTags.length; j++) {
+         if(tags.indexOf(snippetTags[j]) == -1){
+            tags.push(snippetTags[j]);
+         }
+      }
+   }
+
+   selectedTags = tags;
+}
+
 $("#resetFilter").click(function(){
    filtrar("reset");
 });
 
 function iniciarFiltroPorClick(event){
-   filtrar($(event.target).text());
+   var navButtonText = $(event.target).text();
+   if($(event.target).is("li")){ // TO AVOID CLICKING ANYWHERE ELSE INSIDE navContainer
+      filtrar(navButtonText);
+   }
 }
 function filtrar(tagName){
    //$(event.target).fadeOut();
