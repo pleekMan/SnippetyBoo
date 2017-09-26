@@ -74,7 +74,7 @@ function generateSnippetsCode(){
 
 
 
-         $snippetArea.prepend($nuevoSnippet);
+         $snippetArea.append($nuevoSnippet);
          //$("#snippetArea").append($("<div>",{"class":"snippetContainer", "text":"AppendedSnippet"}));
       }
    }
