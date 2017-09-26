@@ -44,9 +44,11 @@ h1{
 }
 
 #navArea h4{
-   margin:0px;
+   margin:8px;
    font-size: 13px;
    color: var(--text-primary-color);
+   float: left;
+
 }
 
 .navContainer{
@@ -167,4 +169,8 @@ h1{
    font-style: italic;
    //border-top: solid 1px var(--divider-color);
    padding-top: 10px;
+}
+
+.ui-widget{
+   margin: 5px 0px 15px 2px;
 }

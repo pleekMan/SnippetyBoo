@@ -41,7 +41,23 @@ var selectedSnippets = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONL
 $(document).ready(function(){
    createNavigation();
    createSnippetContainers();
+
+   // SEARCH BOX FUNCTIONALITY IN JQueryUI
+   $( function() {
+      $( "#tagSearch" ).autocomplete({
+         source: tags,
+         select: function (event, ui) {
+            var seleccion = ui.item.value;
+            filtrar(seleccion);
+            ui.item.value = "";
+            console.log("|| Seleccionaste ==> " + seleccion);
+         }
+      });
+   });
+
 });
+
+
 
 function createSnippetContainers(){
    var $snippetArea = $("#snippetArea");
