@@ -29,7 +29,7 @@ function sendData() {
 
 var snippetsFromDB;
 
-function getSnippetData(){
+function getSnippetData(){ // THIS IS ALREADY IMPLEMENTES IN controller.js
 
       var simpleFormDownloadJsonURL = "https://getsimpleform.com/messages.json?api_token=2c5bf8d6e2e41ba746173130af8c4401";
       

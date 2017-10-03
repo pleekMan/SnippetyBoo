@@ -4,34 +4,70 @@ var selectedTags = [];
 //var selectedTags = ["animacion"];
 
 // SNIPPETS OBJECTS ARE ON snippets.js
-var selectedSnippets = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONLY WITH PRIMITIVES/IMMUTABLES
+var snippets = [];
+var selectedSnippets = [] // = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONLY WITH PRIMITIVES/IMMUTABLES
 
 
 $(document).ready(function(){
 
-   buildNavigationTagsFromSnippets();
-
-   createNavigation();
-   createSnippetContainers();
-
-   // SEARCH BOX FUNCTIONALITY IN JQueryUI
-   $( function() {
-      $( "#tagSearch" ).autocomplete({
-         source: tags,
-         select: function (event, ui) {
-            var seleccion = ui.item.value;
-            filtrar(seleccion);
-            ui.item.value = "";
-            console.log("|| Seleccionaste ==> " + seleccion);
-         }
-      });
-   });
+      fetchSnippetsFromServer();
 
 });
 
+function fetchSnippetsFromServer(){
+
+      var simpleFormDownloadJsonURL = "https://getsimpleform.com/messages.json?api_token=2c5bf8d6e2e41ba746173130af8c4401";
+      
+      $.ajax(simpleFormDownloadJsonURL, {
+            complete: function(data) {
+
+                  var preSnippets = JSON.parse(data.responseText); // WITH A LOT OF STUFF OTHER THAN THE SNIPPET DATA
+
+                  // PUSH THE USEFULL DATA TO SNIPPET ARRAY
+                  for (var index = 0; index < preSnippets.length; index++) {
+                        snippets.push(preSnippets[index].data);                    
+                  }
+
+                  // HAVE ALL SNIPPETS BE SELECTED AT FIRST
+                  selectedSnippets = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONLY WITH PRIMITIVES/IMMUTABLES
+                  
+                  console.log(JSON.parse(data.responseText));                  
+                  console.log("-||Data Fetched");
+
+                  buildNavigationTagsFromSnippets();
+                  createNavigation();
+                  createSnippetContainers();
+                  buildSearchBox();
+
+            },
+            dataType: 'json'
+          })
+}
+
+function buildSearchBox(){
+// SEARCH BOX FUNCTIONALITY IN JQueryUI
+
+      console.log("-|| BUILDING SEARCH-BOX");
+
+
+      $( function() {
+            $( "#tagSearch" ).autocomplete({
+                  source: tags,
+                  select: function (event, ui) {
+                        var seleccion = ui.item.value;
+                        filtrar(seleccion);
+                        ui.item.value = "";
+                        console.log("|| Seleccionaste ==> " + seleccion);
+                  }
+            });
+      });
+}
 
 
 function createSnippetContainers(){
+
+   console.log("-|| BUILDING SNIPPET CONTAINERS");
+      
    var $snippetArea = $("#snippetArea");
 
    updateSelectedSnippetsArray(selectedTags);
@@ -110,9 +146,9 @@ function getNewSnippetsTitles(){
    return titles;
 }
 
-function isSnippetInView(snippet, snippetsInView){
+function isSnippetInView(snippet, $snippetsInView){
 
-   snippetsInView.each(function(index, element){
+   $snippetsInView.each(function(index, element){
       var tituloInView = $(element).children("h1").html();
       if(tituloInView == snippet.titulo){
          return true;
@@ -123,6 +159,9 @@ function isSnippetInView(snippet, snippetsInView){
 }
 
 function createNavigation(){
+
+      console.log("-|| BUILDING NAVIGATION DOM ELEMENTS");
+      
    var $navContainer = $(".navContainer");
 
    for (var i = 0; i < tags.length; i++) {
@@ -138,8 +177,18 @@ function createNavigation(){
 }
 
 function buildNavigationTagsFromSnippets(){
+   console.log("-|| BUILDING NAV TAGS (FROM SNIPPETS)");
    for (var i = 0; i < snippets.length; i++) {
-      var snippetTags = snippets[i].tags;
+
+      var snippetTagsAsObjects = snippets[i].tags;
+
+      // USING THE MAP FUNCTION TU TURN THE TAGS (SUB)OBJECT, AS RETURNED BY THE SERVER, TO AN ARRAY
+      // FROM => {0:"tag1", 1:"tag2"} => to => ["tag1", "tag2"]
+      var snippetTags = $.map(snippetTagsAsObjects, function(value,index){
+            return [value];
+      });
+
+
       for (var j = 0; j < snippetTags.length; j++) {
          if(tags.indexOf(snippetTags[j]) == -1){
             tags.push(snippetTags[j]);
@@ -221,7 +270,14 @@ function updateSelectedSnippetsArray(tagArray){
    //}
 
    for (var i = 0; i < snippets.length; i++) {
-      var snippetsTags = snippets[i].tags;
+
+      var snippetTagsAsObjects = snippets[i].tags;
+
+      // USING THE MAP FUNCTION TU TURN THE TAGS (SUB)OBJECT, AS RETURNED BY THE SERVER, TO AN ARRAY
+      // FROM => {0:"tag1", 1:"tag2"} => to => ["tag1", "tag2"]
+      var snippetsTags = $.map(snippetTagsAsObjects, function(value,index){
+            return [value];
+      });
 
       for (var j = 0; j < selectedTags.length; j++) {
             if(snippetsTags.indexOf(tagArray[j]) != -1){
