@@ -224,3 +224,22 @@ footer {
    font-size: 13px;
    text-align: center;
 }
+
+/* ---------  COLABORATE.HTML   SNIPPETS UPLOAD FORM ---*/
+
+#snippetForm{
+   margin: 0px 0px 0px 40px;
+   border: 0px;
+   padding: 0px;
+}
+
+#snippetForm label{
+   display:inline-block;
+   margin: 15px 0px 5px 40px;
+
+}
+
+#tagBoxes {
+   margin-left:0px;
+   margin-bottom: 20px;
+}

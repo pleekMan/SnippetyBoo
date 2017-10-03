@@ -1,6 +1,6 @@
 var snippets = [
    {
-      titulo: "Seleccion de HTML",
+      titulo: "OLD Seleccion de HTML",
       code: 'var $elemento = $("#selector p")',
       descripcion: "Selecciona y guarda el elemento con ese ID, como un objeto JQuery",
       tags: ["seleccion", "js", "jquery"]
@@ -28,5 +28,11 @@ var snippets = [
       code: "Snippet de Codigo",
       descripcion: "Explicacion del Snippet",
       tags: ["ready","jquery"]
+   },
+   {
+      titulo: "Estilos de un Elemento - GET/SET",
+      code: 'var margen_superior = $("h1").css("margin-top"); // OBTENER\n$("h1").css("opacity", "0.5"); // ASIGNAR (Solo 1 atributo)\n$("h2").css({"opacity": "0.5", "margin-top": "20px"});//ASIGNAR (Varios Atributos a la vez)',
+      descripcion: "GET/SET (Obtener/Asignar) atributos de estilo(css) del/al selector",
+      tags: ["jquery","css"]
    }
 ]

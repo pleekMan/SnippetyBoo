@@ -1,0 +1,8 @@
+SimpleForm API keys:
+
+
+— Form API token: 0b3c3e652847c8217439a9b8f752320e
+—— This is like your public key and its embedded in your form's 'action' attribute.
+
+— Access API token: 2c5bf8d6e2e41ba746173130af8c4401
+—— This is like your private key. You should not share this with anyone. This allows you to access all the data associated with your form.
