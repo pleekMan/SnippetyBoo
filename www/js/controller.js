@@ -7,10 +7,42 @@ var selectedTags = [];
 var snippets = [];
 var selectedSnippets = [] // = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONLY WITH PRIMITIVES/IMMUTABLES
 
+var lightBox;
 
 $(document).ready(function(){
 
+      // FETCHING THE DATA FROM SERVER, IF SUCCESFUL, TRIGGERS BUILDING ALL
+      // DYNAMIC ELEMENTS IN WEBPAGE
       fetchSnippetsFromServer();
+
+      // ATTACH BEHAVIORS to form.submit() event
+      $("#snippetForm").submit( function (){
+            console.log("-||SUBMIT BUTTON BEHAVIOUR");
+            
+            var $submitButton = $(".featherlight #formSubmitButton");
+            $submitButton.attr("disabled",true);
+            $submitButton.attr("value","Subiendo Snippet..!!");
+            $submitButton.css({"background-color":"white"});            
+            
+
+            // CLOSE THE CURRENT featherlight LIGTHBOX, AFTER 2 SECONDS
+            setTimeout(function(){
+                  $.featherlight.current().close();
+            },2000);
+
+            // RELOAD(hardReload=true) THE PAGE AFTER FADING OUT LIGHTBOX
+            setTimeout(function(){
+                  window.location.reload(true);
+            },3000);
+
+            return true;
+      });
+
+      $("#lightBoxTrigger").click(function(){
+            console.log("-|| Opening LightBox Form");
+            //lightBox = $.featherlight.current();
+      });
+
 
 });
 
@@ -19,6 +51,8 @@ function fetchSnippetsFromServer(){
       var simpleFormDownloadJsonURL = "https://getsimpleform.com/messages.json?api_token=2c5bf8d6e2e41ba746173130af8c4401";
       
       $.ajax(simpleFormDownloadJsonURL, {
+            // ASYNCHRONOUS REQUEST: ONLY BUILD THE WEBPAGE DYN ELEMENTS WHEN 
+            // REQUEST RESPONSE IS "complete"
             complete: function(data) {
 
                   var preSnippets = JSON.parse(data.responseText); // WITH A LOT OF STUFF OTHER THAN THE SNIPPET DATA
@@ -173,7 +207,7 @@ function createNavigation(){
    // ATTACHED CLICK HANDLER TO NavButtons
    $(".navContainer").click(iniciarFiltroPorClick);
 
-
+   
 }
 
 function buildNavigationTagsFromSnippets(){
@@ -287,4 +321,16 @@ function updateSelectedSnippetsArray(tagArray){
       }
    }
 
+}
+
+function sendData() {
+      console.log("|| SENDING DATA....");
+      var simpleFormUploadURL = "https://getsimpleform.com/messages?form_api_token=0b3c3e652847c8217439a9b8f752320e";
+      
+      $.post( simpleFormUploadURL, $('#snippetForm').serialize(), function(data) {
+            console.log("Data Sent");
+            },
+            'json' // I expect a JSON response
+      );
+      
 }
