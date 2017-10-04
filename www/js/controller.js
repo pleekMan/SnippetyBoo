@@ -28,11 +28,11 @@ function fetchSnippetsFromServer(){
                         snippets.push(preSnippets[index].data);                    
                   }
 
-                  // HAVE ALL SNIPPETS BE SELECTED AT FIRST
+                  // HAVE ALL SNIPPETS SELECTED AT FIRST
                   selectedSnippets = snippets.slice(); // A WAY OF COPYING BY VALUE, WORKS ONLY WITH PRIMITIVES/IMMUTABLES
                   
                   console.log(JSON.parse(data.responseText));                  
-                  console.log("-||Data Fetched");
+                  console.log("-|| Data Fetched");
 
                   buildNavigationTagsFromSnippets();
                   createNavigation();

@@ -12,12 +12,16 @@
 
       <link rel="stylesheet" href="css/styles.css">
       <link rel="stylesheet" href="css/prism.css">
+      <link href="https://cdn.rawgit.com/noelboss/featherlight/1.7.9/release/featherlight.min.css" type="text/css" rel="stylesheet" />
+      
 
 
    </head>
    <body>
       <header id="cabeza">
         <h1>{ SNIPPET-LANDIA }</h1>
+        <a href="#" data-featherlight="#formLightBox"><div id="lightBoxTrigger">Crear Snippet</div></a>
+        
       </header>
 
       <nav id="navArea">
@@ -52,8 +56,41 @@
          -->
       </section>
 
+      <!-- FORM / UPLOAD-->
+      <div class="lightbox" id="formLightBox">
+          <h1> Sube tu Snippet</h1>
+          <form id="snippetForm" action="javascript:sendData()">
+            <!-- TITULO -->
+            <div>
+                <label for="titulo">Titulo:</label>
+                <input name="titulo" class="ui-widget" type="text" value="Titulo del Snippet"/>
+            </div>
+  
+            <!-- CODIGO -->
+            <dt><label for="code">Codigo:</label></dt>
+            <dd><textarea rows="10" cols="40" name="code">Paste the code "Snippet" here</textarea></dd>
+  
+            <!-- DESCRIPCION -->
+            <dt><label for="descripcion">Descripcion:</label></dt>
+            <dd><textarea rows="10" cols="40" name="descripcion">Explain what the snippet does</textarea></dd>
+  
+            <!-- TAGS (A CREAR DINAMICAMENTE) -->
+            <div id="tagBoxes">
+                <label>Tags: </label><input type="text" name="tags[0]" value="tag1">
+                <input type="text" name="tags[1]" value="tag2">
+                <input type="text" name="tags[2]" value="tag3"></label>
+  
+            </div>
+            <div>
+                <input class="tagSearch" id="formSubmitButton" type="submit" value="Subir Snippet">
+            </div>
+          </form>
+        </div>
+
       <footer>Gracias a Acamica University y a sus profes, Cris, Celi y Pau..!!</footer>
 
       <script type="text/javascript" src="js/prism.js"></script>
+      <script src="https://cdn.rawgit.com/noelboss/featherlight/1.7.9/release/featherlight.min.js" type="text/javascript" charset="utf-8"></script>
+      
   </body>
 </html>

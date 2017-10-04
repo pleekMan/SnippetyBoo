@@ -42,7 +42,6 @@ header h1{
    padding-left: 40px;
    color: var(--light-primary-color);
    font-size: 17px;
-   float: left;
 
 }
 
@@ -99,8 +98,9 @@ h1{
 }
 
 .navContainer li:hover{
-   cursor: pointer;
-   /*background-color: var(--dark-primary-color);*/
+   cursor: pointer;var
+   background-color: var(--secondary-accent-color);
+   //color: var(--primary-text-color);
    transform: translateY(-5px);
    transition: transform 0.5s;
 }
@@ -227,79 +227,19 @@ footer {
 
 /* ---------  COLABORATE.HTML   SNIPPETS UPLOAD FORM ---*/
 
-#lightBoxTrigger{
-   float: right;
-   //width:200px;
-   text-decoration: none;
-   text-align: center;
-
-   padding: 7px;
-
-   border-radius: 15px;
-   border: 1px solid var(--secondary-accent-color);
-   background-color: var(--text-primary-color);
-   color: var(--dark-primary-color);
-
-   margin: 8px 10px 0px 0px;
-
-   font-size: 14px;
-
-   transform: translateY(0px);
-   transition: transform 0.5s;
-}
-
-#lightBoxTrigger:hover{
-   transform: translateY(-5px);
-   transition: transform 0.5s;
-}
-
-
-.lightbox{
-   display: none;
-}
-
-#snippetForm *{
-   margin: 0px;
-   /*margin-top: 5px;*/
+#snippetForm{
+   margin: 0px 0px 0px 40px;
    border: 0px;
    padding: 0px;
-   font-family: "Raleway";
-   font-size: 15px;
-   color: var(--dark-primary-color);
-   border-radius: 5px;
-
-   width: 300px;
-
 }
 
 #snippetForm label{
-   /*display:inline-block;*/
-   /*margin: 15px 0px 5px 40px;*/
+   display:inline-block;
+   margin: 15px 0px 5px 40px;
+
 }
 
-#snippetForm input{
-   border: 1px solid var(--accent-color);
+#tagBoxes {
+   margin-left:0px;
    margin-bottom: 20px;
-   font-size: 13px;
-   height: 20px;
-   padding-left: 10px
-}
-
-#snippetForm textarea{
-   border: 1px solid var(--accent-color);
-   padding: 5px;
-   margin-bottom: 20px;
-   height: 100px;
-   font-size: 13px;
-}
-
-#tagBoxes input{
-   display: block;
-   margin-bottom: 10px;
-   width: 100px;
-}
-
-#formSubmitButton{
-   margin-top: 10px;
-   width: 150px;
 }
