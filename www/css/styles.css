@@ -54,6 +54,19 @@ h1{
 
 }
 
+hr{
+   display: block;
+   border: solid 1px var(--secondary-text-color);
+}
+
+:link{
+   color: var(--accent-color);
+}
+
+:visited{
+   color: var(--accent-color);
+}
+
 #navArea{
    //background-color: var(--default-primary-color);
    padding: 20px 0 10px 40px;
@@ -256,6 +269,10 @@ footer {
 
 .lightbox{
    display: none;
+}
+
+#formLightBox h1{
+   border-bottom:solid 1px var(--secondary-text-color);
 }
 
 #snippetForm *{

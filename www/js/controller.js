@@ -40,7 +40,27 @@ $(document).ready(function(){
 
       $("#lightBoxTrigger").click(function(){
             console.log("-|| Opening LightBox Form");
-            //lightBox = $.featherlight.current();
+            
+            // REASSIGN TAB INDICES
+            // BECAUSE LIGHTBOX FUCKS THEM UP (SETS THEM ALL TO -1).
+            // WAIT a little SECOND FOR THE LIGHTBOX TO COMPLETELY BUILD
+            setTimeout(function(){
+               $(".featherlight").find("input[name='titulo']").attr("tabindex","1");
+               $(".featherlight").find("textarea[name='code']").attr("tabindex","2");
+               $(".featherlight").find("textarea[name='descripcion']").attr("tabindex","3");
+               $(".featherlight").find("input[name='tags[0]']").attr("tabindex","4");
+               $(".featherlight").find("input[name='tags[1]']").attr("tabindex","5");
+               $(".featherlight").find("input[name='tags[2]']").attr("tabindex","6");
+               $(".featherlight").find("#formSubmitButton").attr("tabindex","7");
+
+               // AGREGAR UN SUBRAYADO AL TITULO
+               //var titulo = $(".featherlight h1");
+               //titulo.css({"border-bottom":"solid 1px #757575"});
+
+            },10);
+            
+            
+
       });
 
 
@@ -129,7 +149,14 @@ function generateSnippetsCode(){
          var $preCode = $("<pre>");
          $preCode.append($code);
          var $descripcion = $("<p>",{"text":selectedSnippets[i].descripcion,"class":"snippetDescription"});
-         var $tags = $("<p>",{"text":selectedSnippets[i].tags,"class":"snippetTags"});
+
+         // USING THE MAP FUNCTION TU TURN THE TAGS (SUB)OBJECT, AS RETURNED BY THE SERVER, TO AN ARRAY
+         // FROM => {0:"tag1", 1:"tag2"} => to => ["tag1", "tag2"]
+         var snippetTagsAsArray = $.map(selectedSnippets[i].tags, function(value,index){
+            return [value];
+         });
+
+         var $tags = $("<p>",{"text":snippetTagsAsArray,"class":"snippetTags"});
 
          var $nuevoSnippet = $("<div>",{"class":"snippetContainer"});
 
@@ -327,7 +354,7 @@ function sendData() {
       console.log("|| SENDING DATA....");
       var simpleFormUploadURL = "https://getsimpleform.com/messages?form_api_token=0b3c3e652847c8217439a9b8f752320e";
       
-      $.post( simpleFormUploadURL, $('#snippetForm').serialize(), function(data) {
+      $.post( simpleFormUploadURL, $(".featherlight").find('form').serialize(), function(data) {
             console.log("Data Sent");
             },
             'json' // I expect a JSON response
